@@ -19,8 +19,20 @@ export default class ChatCtrl extends Controller {
                 return Chats.findOne(this.chatId);
             }
         });
-    }
 
+        this.autoScroll();
+    }
+    
+    autoScroll() {
+        let recentMessagesNum = this.messages.length;
+
+        this.autorun(() => {
+            const currMessagesNum = this.getCollectionReactively('messages').length;
+            const animate = recentMessagesNum != currMessagesNum;
+            recentMessagesNum = currMessagesNum;
+            this.scrollBottom(animate);
+        });
+    }
 
     sendMessage() {
         if (_.isEmpty(this.message)) return;

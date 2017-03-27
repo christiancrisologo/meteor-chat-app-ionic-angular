@@ -2,7 +2,7 @@ import { Controller } from 'angular-ecmascript/module-helpers';
 import { Chats } from '../../../lib/collections';
 
 export default class ChatsCtrl extends Controller {
-    constructor() { 
+    constructor() {
         super(...arguments);
 
         this.helpers({
@@ -10,7 +10,7 @@ export default class ChatsCtrl extends Controller {
                 return Chats.find();
             }
         });
-        
+
     }
 
     //     this.data = [
@@ -62,13 +62,19 @@ export default class ChatsCtrl extends Controller {
     //     ];
     // }
 
+    showNewChatModal() {
+        this.NewChat.showModal();
+    }
+
     remove(chat) {
         // this.data.splice(this.data.indexOf(chat), 1);
 
-        Chats.remove(chat._id);
+        //Chats.remove(chat._id);
+            this.callMethod('removeChat', chat._id);
     }
 
 }
 
 
 ChatsCtrl.$name = 'ChatsCtrl';
+ChatsCtrl.$inject = ['NewChat'];
